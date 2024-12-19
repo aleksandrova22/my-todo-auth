@@ -1,4 +1,4 @@
-import { Session } from "inspector/promises";
+//import { Session } from "inspector/promises";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Component() {

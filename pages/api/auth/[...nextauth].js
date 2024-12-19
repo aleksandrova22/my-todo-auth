@@ -21,7 +21,7 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
-        console.log('________ credentials', credentials);
+        console.log('________ credentials', credentials, req);
         // Return null if user data could not be retrieved
 
         if ('1' === credentials.username && '1' === credentials.password)

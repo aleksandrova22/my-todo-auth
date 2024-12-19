@@ -1,10 +1,10 @@
 import { Item } from './Item';
-import { memo, Fragment, ReactNode, MouseEventHandler, HTMLElementEventMap } from 'react';
+import { memo, Fragment, ReactNode, MouseEventHandler, ChangeEventHandler } from 'react';
 import classes from './List.module.css';
 import { ToDoList } from '@prisma/client';
 
 type ListProps = {
-  list: ToDoList[], editedId: ToDoList['id'] | null, editForm: ReactNode, delItem: MouseEventHandler, startEditItem: MouseEventHandler, toggleCheckbox: HTMLElementEventMap
+  list: ToDoList[], editedId: ToDoList['id'] | null, editForm: ReactNode, delItem: MouseEventHandler, startEditItem: MouseEventHandler, toggleCheckbox: ChangeEventHandler
 };
 
 export const List = memo(function _List({ list, editedId, editForm, delItem, startEditItem, toggleCheckbox}: ListProps) {

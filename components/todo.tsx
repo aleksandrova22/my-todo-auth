@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import toast from 'react-hot-toast';
 import { ErrorInfo } from '../components/Error';
 import { config } from './Elem/jsph';
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState } from 'react';
+import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState, ChangeEventHandler  } from 'react';
 import type { Column } from './Elem/jsph';
 import { ToDoList } from '@prisma/client';
 import { List } from './Elem/List';
@@ -145,8 +145,10 @@ export function ToDo() {
             }
         },
 
-        toggleCheckbox: MouseEventHandler = async (event) => {
-            let optimisticData: undefined | ToDoList[] = undefined;
+        toggleCheckbox: ChangeEventHandler = async (event) => {
+
+
+           const optimisticData: undefined | ToDoList[] = undefined;
             const
             target = event.target as HTMLElement,
             id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id;

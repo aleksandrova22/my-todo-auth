@@ -1,6 +1,5 @@
 import { memo, MouseEventHandler, ChangeEventHandler} from 'react';
 import { ToDoList } from '@prisma/client';
-//import { Memoize } from 'typescript-memoize';
 
 
 type ItemProps = {

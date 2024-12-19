@@ -1,7 +1,7 @@
 import { ToDoList } from "@prisma/client";
 import { ReactNode } from "react";
 
-//type todo = {id: number, text: string,  checked: string};
+//type todo = {id: number, text: string,  checked: Boolean};
 
 export type Column = {
     title: string,
