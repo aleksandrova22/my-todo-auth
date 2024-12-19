@@ -1,10 +1,10 @@
-import { memo, MouseEventHandler, HTMLElementEventMap} from 'react';
+import { memo, MouseEventHandler, ChangeEventHandler} from 'react';
 import { ToDoList } from '@prisma/client';
 //import { Memoize } from 'typescript-memoize';
 
 
 type ItemProps = {
-  item: ToDoList, delItem: MouseEventHandler, startEditItem: MouseEventHandler, toggleCheckbox: HTMLElementEventMap 
+  item: ToDoList, delItem: MouseEventHandler, startEditItem: MouseEventHandler, toggleCheckbox: ChangeEventHandler 
 };
 
 
