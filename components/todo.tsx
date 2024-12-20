@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import toast from 'react-hot-toast';
 import { ErrorInfo } from '../components/Error';
 import { config } from './Elem/jsph';
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState, ChangeEventHandler  } from 'react';
+import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState} from 'react';
 import type { Column } from './Elem/jsph';
 import { ToDoList } from '@prisma/client';
 import { List } from './Elem/List';
@@ -70,13 +70,15 @@ export function ToDo() {
             }
         },
         //удаление
-        delItem: MouseEventHandler = async (event) => {
+        delItem = async (id: null | ToDoList['id']) => {
             let optimisticData: undefined | ToDoList[] = undefined;
+            if (!id) return;
             const
-                target = event.target as HTMLElement,
-                id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id,
+                // target = event.target as HTMLElement,
+                // id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id,
+
                 getPromise = async () => {
-                    optimisticData = data?.filter(el => String(el.id) !== id);
+                    optimisticData = data?.filter(el => (el.id) !== id);
                     return fetch(API_URL + '/' + id, { method: 'DELETE' })
                         .then(res => {
                             if (!res.ok) {
@@ -95,14 +97,15 @@ export function ToDo() {
             }
         },
 
-        startEditItem: MouseEventHandler = (event) => {
+        startEditItem = (id: null | ToDoList['id']) => {
+            if (!id) return;
+            //const
+            //target = event.target as HTMLElement,
+            //id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id;
+            // if (!id) throw new Error('not id');
+            setEditedId(id);
             const
-                target = event.target as HTMLElement,
-                id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id;
-            if (!id) throw new Error('not id');
-            setEditedId(+id);
-            const
-                editedData = data?.find(el => String(el.id) === id);
+                editedData = data?.find(el => (el.id) === id);
             setEditFormValues(
                 config.columns.map(({ setVal, getVal }) =>
                     getVal && setVal
@@ -145,25 +148,23 @@ export function ToDo() {
             }
         },
 
-        toggleCheckbox: ChangeEventHandler = async (event) => {
+        toggleCheckbox = async (id: null | ToDoList['id']) => {
 
-
-           const optimisticData: undefined | ToDoList[] = undefined;
-            const
-            target = event.target as HTMLElement,
-            id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id;
+            const optimisticData: undefined | ToDoList[] = undefined;
+            //const                target = event.target as HTMLElement,
+                //id = (target.closest('[data-id]') as HTMLElement)?.dataset?.id;
             if (!id) throw new Error('not id');
-                const getPromise = async () => {
-                    const
-                        current: ToDoList | undefined = data?.find(el => String(id) === String(el.id)),
-                        checked = !current?.checked;
-                    await fetch(API_URL + '/' + id, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ checked })
-                    });
+            const getPromise = async () => {
+                const
+                    current: ToDoList | undefined = data?.find(el => String(id) === String(el.id)),
+                    checked = !current?.checked;
+                await fetch(API_URL + '/' + id, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ checked })
+                });
 
-                },
+            },
                 promise = getPromise();
             if (promise) {
                 toast.promise(promise, {
@@ -175,7 +176,6 @@ export function ToDo() {
             }
 
         }
-
 
 
     return <>
